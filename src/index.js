@@ -6,7 +6,7 @@ import {notFound, errorHandler} from "./middleware/error.middleware.js"
 import userRoutes from "./routes/user.route.js"
 import adminRoutes from "./routes/admin.route.js"
 import teacherRoutes from "./routes/teacher.route.js"
-
+import seedAdmin from "./config/seedAmin.js";
 
 const app = express()
 
@@ -43,6 +43,7 @@ const startDB = async () => {
         const conn = await connectDB()
         if(conn.readyState === 1) {
             console.log("😊 Database Connected Successfully")
+            await seedAdmin()
             app.listen(ENV.PORT, () => {
                 console.log(`😊 Server Running On Port ${ENV.PORT}`)
             })
