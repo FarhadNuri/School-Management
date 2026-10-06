@@ -1,5 +1,7 @@
 import {Schema, model} from "mongoose"
 
+const ATTENDANCE_STATUSES = ['present', 'absent', 'late', 'excused'];
+
 const attendanceSchema = new Schema(
   {
     lesson: {type: Schema.Types.ObjectId, ref: 'Lesson', required: true},
@@ -21,5 +23,5 @@ attendanceSchema.index({ teacher: 1, date: -1 });
 
 const Attendance = model('Attendance', attendanceSchema);
 
+export { ATTENDANCE_STATUSES };
 export default Attendance;
-module.exports.ATTENDANCE_STATUSES = ATTENDANCE_STATUSES;
