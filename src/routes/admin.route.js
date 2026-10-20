@@ -8,6 +8,11 @@ import { addAnnouncement, getAnnouncements, updateAnnouncement, getAnnouncementB
 import {addClass, getClasses, getClassById, updateClass} from "../controllers/admin/class.controller.js"
 import {getComplaints, getComplaintById} from "../controllers/admin/complaint.controller.js"
 import { addCourse, getCourses, getCourseById, updateCourse } from "../controllers/admin/course.controller.js";
+import {addStudent, getStudents, getStudentById, setStudentStatus, updateStudent} from '../controllers/admin/student.controller.js'
+import {getGuardianById, getGuardians, setGuardianStatus, updateGuardian} from '../controllers/admin/guardian.controller.js'
+import {addTeacher, getTeachers, getTeacherById, setTeacherStatus, updateTeacher} from '../controllers/admin/teacher.controller.js'
+import {createInvoice, getPayments, getPaymentById, updatePayment, resendInvoice, cancelPayment} from '../controllers/admin/payment.controller.js'
+import { handleStudentUpload, handleTeacherUpload   } from "../middleware/multer.middleware.js";
 
 const router = Router()
 
@@ -45,6 +50,36 @@ router.post('/courses',addCourse)
 router.get('/courses',getCourses)
 router.get('/courses/:id',getCourseById)
 router.patch('/courses/:id',updateCourse)
+
+
+// STUDENT ROUTES FOR admin
+router.post('/students', handleStudentUpload, addStudent);
+router.get('/students', getStudents);
+router.get('/students/:id', getStudentById);
+router.patch('/students/:id', setStudentStatus);
+router.patch('/students/:id', handleStudentUpload, updateStudent);
+
+// GUARDIAN ROUTES for admin
+router.get('/guardians', getGuardians);
+router.get('/guardians/:id', getGuardianById);
+router.patch('/guardians/:id/status', setGuardianStatus);
+router.patch('/guardians/:id', updateGuardian);
+
+// TEACHER ROUTES for admin
+router.post('/teachers', handleTeacherUpload, addTeacher);
+router.get('/teachers', getTeachers);
+router.get('/teachers/:id', getTeacherById);
+router.patch('/teachers/:id/status', setTeacherStatus);
+router.patch('/teachers/:id', handleTeacherUpload, updateTeacher);
+
+
+// PAYMENT / INVOICE ROUTES for admin
+router.post('/payments', createInvoice);
+router.get('/payments', getPayments);
+router.get('/payments/:id', getPaymentById);
+router.patch('/payments/:id', updatePayment);
+router.post('/payments/:id/resend', resendInvoice);
+router.post('/payments/:id/cancel', cancelPayment);
 
 
 export default router

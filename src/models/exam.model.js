@@ -26,7 +26,7 @@ const examSchema = new Schema({
   passingMarks: { type: Number, required: true, min: 0 },
   instructions: { type: String, trim: true, default: '' },
   status: { type: String, enum: ['scheduled', 'ongoing', 'completed', 'cancelled'], default: 'scheduled' },
-  results: [resultsSchema],
+  results: [resultSchema],
   isActive: { type: Boolean, default: true },
 }, { timestamps: true });
 
